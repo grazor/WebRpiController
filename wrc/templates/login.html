@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Авторизация{% endblock %}
+
+{% block pagetitle %}Авторизация{% endblock %}
+
+{% block content %}
+	{% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+	<div id="login">
+	    <form action="?next={{ next }}" method="POST" class="form-horizontal">
+	    	<div class="control-group">
+			    <label class="control-label" for="login">Логин</label>
+			    <div class="controls">
+			      <input type="text" id="login" name="login" placeholder="Логин">
+			    </div>
+			</div>
+			<div class="control-group">
+			    <label class="control-label" for="password">Пароль</label>
+			    <div class="controls">
+			      <input type="password" id="password" name="password" placeholder="Пароль">
+			    </div>
+			</div>
+			<div class="control-group">
+			    <div class="controls">
+			      <button type="submit" class="btn">Войти</button>
+			    </div>
+			</div>
+
+			
+	    </form>
+    </div>
+{% endblock %}
