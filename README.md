@@ -25,7 +25,7 @@ sudo pip install -r pip_requirements.txt
 
 Configuration
 -------------
-Managed pins are listed in `wrc/__init__.py` file
+Managed pins are listed in `wrc/__init__.py` file. Pins are named as on the board.
 ```python
     PINS = [ {'id': '1',  'name': u'Smth'},
              {'id': '4',  'name': u'Smth else'},
@@ -35,7 +35,7 @@ Managed pins are listed in `wrc/__init__.py` file
              {'id': '18', 'name': u'Pin'}, ]
 ```
 
-Modify this varriable to set GPIO polling delay (in seconds)
+Modify this varriable to set GPIO polling delay (in seconds):
 ```python
     GPIO_POLLING_DELAY = 3
 ```
@@ -44,4 +44,10 @@ Launching
 ---------
 ```bash
 sudo ./server.py
+```
+
+Run in background
+```bash
+screen -S web sudo ./server.py
+Ctrl+A, D
 ```
