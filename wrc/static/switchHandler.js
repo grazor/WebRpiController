@@ -71,8 +71,8 @@ var polling = false;
 
 
 // Polling
-if (enablePolling) {
-    var timer = setInterval(pinStatePolling, 5*1000);
+if (pollingDelay > 0) {
+    var timer = setInterval(pinStatePolling, pollingDelay*1000);
 }
 
 // Set toggle handlers

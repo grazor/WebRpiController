@@ -8,6 +8,7 @@ from wrc import app
 
 # RPi.GPIO can be launched only at raspberry, otherwise it'll raise RuntimeError
 try:
+    import RPi.GPIO as GPIO
     rpi = True
 except RuntimeError:
     rpi = False
@@ -37,7 +38,7 @@ def getState():
 def index():
     """ Index page """
     pins = getState()
-    return render_template('index.html', pins=pins, polling=app.config['ENABLE_POLLING'])
+    return render_template('index.html', pins=pins, polling=app.config['GPIO_POLLING_DELAY'])
 
 
 @app.route('/pin/', methods=['POST'])

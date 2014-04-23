@@ -35,9 +35,9 @@ Managed pins are listed in `wrc/__init__.py` file
              {'id': '18', 'name': u'Pin'}, ]
 ```
 
-To disable pins' state polling change this variable
+Modify this varriable to set GPIO polling delay (in seconds)
 ```python
-    ENABLE_POLLING = True
+    GPIO_POLLING_DELAY = 3
 ```
 
 Launching

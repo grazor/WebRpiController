@@ -28,8 +28,8 @@ class Config(object):
              {'id': '22', 'name': u'Smth else'}, ]
 
 
-    # Allows poll pins' states while controll page loaded
-    ENABLE_POLLING = True
+    # Sets GPIO polling delay in seconds. 0 = disabled
+    GPIO_POLLING_DELAY = 3
 
     # Disables warnings from RPi.GPIO lib
     GPIO_WARNINGS = False
