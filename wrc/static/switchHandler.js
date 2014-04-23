@@ -71,7 +71,9 @@ var polling = false;
 
 
 // Polling
-var timer = setInterval(pinStatePolling, 5*1000);
+if (enablePolling) {
+    var timer = setInterval(pinStatePolling, 5*1000);
+}
 
 // Set toggle handlers
 var toggles = document.querySelectorAll('.toggle');

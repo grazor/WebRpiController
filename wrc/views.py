@@ -38,7 +38,7 @@ def getState():
 def index():
     """ Index page """
     pins = getState()
-    return render_template('index.html', pins=pins)
+    return render_template('index.html', pins=pins, polling=app.config['ENABLE_POLLING'])
 
 
 @app.route('/pin/', methods=['POST'])

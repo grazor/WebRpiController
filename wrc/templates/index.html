@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block head %}{% if polling == True %}<script type="text/javascript">var enablePolling = true;</script>{% else %}<script type="text/javascript">var enablePolling = false;</script>{% endif %}{% endblock %}
+
 {% block title %}Control center{% endblock %}
 
 {% block pagetitle %}Rpi controller{% endblock %}

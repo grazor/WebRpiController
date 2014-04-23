@@ -28,6 +28,10 @@ class Config(object):
              {'id': '18', 'name': u'Pin'}, ]
 
 
+    # Allows poll pins' states while controll page loaded
+    ENABLE_POLLING = True
+
+
     
 
 """ Настройки сервера для разработки """

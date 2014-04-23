@@ -19,7 +19,7 @@ What isn't done?
 Installation
 ------------
 ```bash
-sudo apt-get install pip
+sudo apt-get install python-pip
 sudo pip install -r pip_requirements.txt
 ```
 
@@ -27,13 +27,17 @@ Configuration
 -------------
 Managed pins are listed in `wrc/__init__.py` file
 ```python
-    # Managed pins
     PINS = [ {'id': '1',  'name': u'Smth'},
              {'id': '4',  'name': u'Smth else'},
              {'id': '12', 'name': u'Another thing'},
              {'id': '15', 'name': u'Lalala'}, 
              {'id': '16', 'name': u'Pin'},
              {'id': '18', 'name': u'Pin'}, ]
+```
+
+To disable pins' state polling change this variable
+```python
+    ENABLE_POLLING = True
 ```
 
 Launching
