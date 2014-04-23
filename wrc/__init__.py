@@ -20,16 +20,19 @@ class Config(object):
     SECRET_KEY = '\xc2\xd5E\xe3\xf1\x1fp\'<d\xd0]\xb9\x01I\x112\xc1w\xaa\x85x\x11\xde\xb3\xc5'
 
     # Managed pins
-    PINS = [ {'id': '1',  'name': u'Smth'},
-             {'id': '4',  'name': u'Smth else'},
-             {'id': '12', 'name': u'Another thing'},
+    PINS = [ {'id': '12', 'name': u'Smth'},
+             {'id': '13', 'name': u'Another thing'},
              {'id': '15', 'name': u'Lalala'}, 
              {'id': '16', 'name': u'Pin'},
-             {'id': '18', 'name': u'Pin'}, ]
+             {'id': '18', 'name': u'Pin'},
+             {'id': '22', 'name': u'Smth else'}, ]
 
 
     # Allows poll pins' states while controll page loaded
     ENABLE_POLLING = True
+
+    # Disables warnings from RPi.GPIO lib
+    GPIO_WARNINGS = False
 
 
     

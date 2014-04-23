@@ -9,6 +9,7 @@ from wrc import app
 # RPi.GPIO can be launched only at raspberry, otherwise it'll raise RuntimeError
 try:
     import RPi.GPIO as GPIO
+    GPIO.setwarnings(app.config['GPIO_WARNINGS'])
     GPIO.setmode(GPIO.BOARD)
     for pin in app.config['PINS']:
         GPIO.setup(int(pin['id']), GPIO.OUT)

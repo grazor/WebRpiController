@@ -43,5 +43,5 @@ To disable pins' state polling change this variable
 Launching
 ---------
 ```bash
-./server.py
+sudo ./server.py
 ```
