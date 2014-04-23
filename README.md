@@ -16,6 +16,13 @@ What isn't done?
 * Control PWN
 * Input pins
 
+Installation
+------------
+```bash
+sudo apt-get install pip
+sudo pip install -r pip_requirements.txt
+```
+
 Configuration
 -------------
 Managed pins are listed in `wrc/__init__.py` file
@@ -28,14 +35,6 @@ Managed pins are listed in `wrc/__init__.py` file
              {'id': '16', 'name': u'Pin'},
              {'id': '18', 'name': u'Pin'}, ]
 ```
-
-Installation
-------------
-```bash
-sudo apt-get install pip
-sudo pip install -r pip_requirements.txt
-```
-
 
 Launching
 ---------
