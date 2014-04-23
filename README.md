@@ -4,18 +4,21 @@ WebRpiController
 About
 -----
 This project provides simple mobile web-interface for controlling Raspberry Pi's GPIO pins.
-Web-server is based on python and flask framework (http://flask.pocoo.org/); interface utilizes Ratchet ftamework (http://goratchet.com/); GPIO is contolled by RPi.GPIO framework (http://sourceforge.net/projects/raspberry-gpio-python/)
+Web-server is based on python and flask framework (http://flask.pocoo.org/); interface utilizes Ratchet ftamework (http://goratchet.com/); GPIO is contolled by RPi.GPIO framework (http://sourceforge.net/projects/raspberry-gpio-python/).
 
 What's done?
 ------------
-[X] Control GPIO outputs
-[ ] Authorisation
-[ ] Control PWN
-[ ] Input pins
+* Control GPIO outputs
+
+What isn't done?
+----------------
+* Authorisation
+* Control PWN
+* Input pins
 
 Configuration
 -------------
-Managed pins are listed in wrc/__init__.py file
+Managed pins are listed in `wrc/__init__.py` file
 ```python
     # Managed pins
     PINS = [ {'id': '1',  'name': u'Smth'},
