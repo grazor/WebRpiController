@@ -11,7 +11,7 @@ try:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BOARD)
     for pin in app.config['PINS']:
-        GPIO.setup(pin['id'], GPIO.OUT)
+        GPIO.setup(int(pin['id']), GPIO.OUT)
     rpi = True
 except RuntimeError:
     rpi = False
