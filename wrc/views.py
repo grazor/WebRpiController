@@ -8,11 +8,6 @@ from wrc import app
 
 # RPi.GPIO can be launched only at raspberry, otherwise it'll raise RuntimeError
 try:
-    import RPi.GPIO as GPIO
-    GPIO.setwarnings(app.config['GPIO_WARNINGS'])
-    GPIO.setmode(GPIO.BOARD)
-    for pin in app.config['PINS']:
-        GPIO.setup(int(pin['id']), GPIO.OUT)
     rpi = True
 except RuntimeError:
     rpi = False
@@ -27,7 +22,7 @@ def getState():
         pinState = {'id': pin['id'], 'name': pin['name']}
         if rpi:
             try:
-                pinState['state'] = "on" if GPIO.input(int(pin)) == True else "off"
+                pinState['state'] = "on" if GPIO.input(int(pin['id'])) == GPIO.HIGH else "off"
             except:
                 pinState['state'] = "off"
         else:
@@ -51,7 +46,7 @@ def setPinState():
     if request.method == 'POST':
             try:
                 pin = int(request.form['pin'])
-                value = bool(request.form['value'])
+                value = request.form['value'] == 'true'
 
                 if rpi:
                     GPIO.output(pin, value)
