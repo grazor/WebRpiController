@@ -13,7 +13,7 @@ What's done?
 What isn't done?
 ----------------
 * Authorisation
-* Control PWN
+* Control PWM
 * Input pins
 
 Installation
@@ -39,6 +39,17 @@ Modify this varriable to set GPIO polling delay (in seconds):
 ```python
     GPIO_POLLING_DELAY = 3
 ```
+
+Don't forget to generate another secret key!
+```python
+import os
+os.urandom(24)
+```
+
+```python
+    SECRET_KEY = 'your-key-here'
+```
+
 
 Launching
 ---------
