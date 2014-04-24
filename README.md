@@ -9,9 +9,10 @@ Web-server is based on python and flask framework (http://flask.pocoo.org/); int
 What's done?
 ------------
 - [X] Control GPIO outputs
-- [ ] Authorisation
-- [ ] Control PWM
-- [ ] Input pins
+- [Ч] Authorisation
+- [_] Control PWM
+- [_] Input pins
+
 
 Installation
 ------------

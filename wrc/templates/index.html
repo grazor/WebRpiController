@@ -10,7 +10,7 @@
     <ul class="table-view">
         {% for pin in pins %}
         <li class="table-view-cell">
-            {{ pin.name }} (pin {{ pin.id }})
+            {{ pin.name }} {% if display %}(pin {{ pin.id }}){% endif %}
             <div class="toggle{% if pin.state == "on" %} active{% endif %}" id="p{{ pin.id }}">
                 <div class="toggle-handle"></div>
             </div>

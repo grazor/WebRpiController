@@ -1,0 +1,10 @@
+.footer-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: 10px 0;
+}
+
+.login-form {
+    margin-top: 30px;
+}
