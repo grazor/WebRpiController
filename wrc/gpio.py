@@ -11,6 +11,7 @@ except RuntimeError:
 
 
 def initGpio():
+    """Inits GPIO with default settings"""
     if rpi:
         GPIO.setwarnings(app.config['GPIO_WARNINGS'])
         GPIO.setmode(GPIO.BOARD)
@@ -23,12 +24,13 @@ def initOutPin(pinId):
 
 
 def cleanup():
+    """Cleanups GPIO data"""
     if rpi:
         GPIO.cleanup()
 
 
 def getOutPinState(pinId):
-    """ Returns pin's state. 'on' or 'off'. If app running not on a raspberry, returns 'off' """
+    """Returns pin's state. 'on' or 'off'. If app running not on a raspberry, returns 'off'"""
     state = 'off'
     if rpi:
         try:

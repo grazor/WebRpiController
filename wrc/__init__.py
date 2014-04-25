@@ -47,9 +47,8 @@ class Config(object):
 
 
     
-
-""" Настройки сервера для разработки """
 class DevelopmentConfig(Config):
+    """Development configuration"""
     DEBUG = True
 
 
@@ -61,7 +60,7 @@ app.config.from_object(DevelopmentConfig)
 # Logging
 formatter = logging.Formatter(fmt=u'%(asctime)s %(levelname)-8s %(filename)s[on line:%(lineno)d]# %(message)s')
 
-handler = logging.FileHandler(os.path.join(os.getcwd(),'error.log'), 'a')
+handler = logging.FileHandler(os.path.join(os.getcwd(), 'error.log'), 'a')
 handler.setFormatter(formatter)
 
 logger = logging.getLogger('wrc')

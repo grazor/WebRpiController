@@ -9,7 +9,7 @@ from gpio import getOutPinState
 
 
 def getState():
-    """ Polls all pins, returns its' states """
+    """Polls all pins, returns its' states"""
     watchPins = app.config['PINS']
 
     state = []

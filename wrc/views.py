@@ -13,7 +13,7 @@ from gpio import setOupPinState
 @app.route("/")
 @requires_auth
 def index():
-    """ Index page """
+    """Index page"""
     pins = getState()
     return render_template('index.html', pins=pins, polling=app.config['GPIO_POLLING_DELAY'], display=app.config['DISPLAY_PIN_ID'])
 
@@ -21,7 +21,7 @@ def index():
 @app.route('/pin/', methods=['POST'])
 @requires_auth
 def setPinState():
-    """ Sets pin state """
+    """Sets pin state"""
     if request.method == 'POST':
         try:
             pin = int(request.form['pin'])
@@ -38,13 +38,13 @@ def setPinState():
 @app.route('/state/')
 @requires_auth
 def getPinState():
-    """ Returns pins state as JSON """
+    """Returns pins state as JSON"""
     pins = getState()
     return json.dumps(pins)
 
 
 
-@app.route("/login/", methods=['GET','POST'])
+@app.route('/login/', methods=['GET','POST'])
 def login():
     """Generates authorisation page"""
     # Get page to be loaded after aithorisation
@@ -74,7 +74,7 @@ def login():
     return render_template('login.html', error=error, next=next)
 
 
-@app.route("/logout/", methods=['GET','POST'])
+@app.route('/logout/')
 @requires_auth
 def logout():
     """Closes user session"""

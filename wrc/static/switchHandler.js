@@ -8,7 +8,7 @@ function myToggleHandler(e) {
              value: e.detail.isActive 
     };
 
-    console.log('Set pin ' + data.pin + ' = ' + data.value)
+    console.log("Set pin " + data.pin + " = " + data.value)
     
     // Send request
     $.ajax({

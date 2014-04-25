@@ -9,7 +9,7 @@
 {% block content %} 
     <ul class="table-view">
         {% for pin in pins %}
-        <li class="table-view-cell">
+        <li class="table-view-cell pins-info">
             {{ pin.name }} {% if display %}(pin {{ pin.id }}){% endif %}
             {% if pin.type == "out" %}<div class="toggle{% if pin.state == "on" %} active{% endif %}" id="p{{ pin.id }}">
                 <div class="toggle-handle"></div>

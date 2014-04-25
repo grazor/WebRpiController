@@ -4,7 +4,7 @@
 {% block pagetitle %}Rpi controller{% endblock %}
 
 {% block content %}
-	{% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+	{% if error %}<p class="alert-error">{{ error }}</p>{% endif %}
     <form action="?next={{ next }}" method="POST" class="login-form">
     	<input type="text" placeholder="Login" name="login" />
 		<input type="password" placeholder="Password" name="password" />
