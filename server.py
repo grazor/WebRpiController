@@ -16,7 +16,7 @@ def sigintHandler(signal, frame):
 signal.signal(signal.SIGINT, sigintHandler)
 
 if __name__ == '__main__':
-    initGpio()
+    initGpio(app.config['GPIO_WARNINGS'])
     for pin in app.config['PINS']:
         initOutPin(int(pin['id']))
     

@@ -10,10 +10,10 @@ except RuntimeError:
     rpi = False
 
 
-def initGpio():
+def initGpio(warnings):
     """Inits GPIO with default settings"""
     if rpi:
-        GPIO.setwarnings(app.config['GPIO_WARNINGS'])
+        GPIO.setwarnings(warnings)
         GPIO.setmode(GPIO.BOARD)
 
 
