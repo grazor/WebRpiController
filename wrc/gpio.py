@@ -20,7 +20,7 @@ def initGpio(warnings):
 def initOutPin(pinId):
     """Inits pin"""
     if rpi:
-        GPIO.setup(int(pin['id']), GPIO.OUT)
+        GPIO.setup(int(pinId), GPIO.OUT)
 
 
 def cleanup():
@@ -43,4 +43,4 @@ def getOutPinState(pinId):
 def setOupPinState(pinId, value):
     """Sets pin value"""
     if rpi:
-        GPIO.output(pin, value)
+        GPIO.output(pinId, value)
