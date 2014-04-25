@@ -5,13 +5,7 @@ from functools import wraps
 
 from flask import g, session, url_for, redirect, request
 from wrc import app
-
-# RPi.GPIO can be launched only at raspberry, otherwise it'll raise RuntimeError
-try:
-    import RPi.GPIO as GPIO
-    rpi = True
-except RuntimeError:
-    rpi = False
+from gpio import getOutPinState
 
 
 def getState():
@@ -21,19 +15,15 @@ def getState():
     state = []
     for pin in watchPins:
         pinState = {'id': pin['id'], 'name': pin['name'], 'type': pin['type']}
-        if pinState['type'] == u'1ws':
+
+        if pinState['type'] == u'out':
+            pinState['state'] = getOutPinState(pinState['id'])
+        elif pinState['type'] == u'1ws':
+            pinState['state'] = '0'
             pinState['unit'] = pin['unit']
-        elif pinState['type'] == u'out':
-            if rpi:
-                try:
-                    pinState['state'] = "on" if GPIO.input(int(pin['id'])) == GPIO.HIGH else "off"
-                except:
-                    pinState['state'] = "off"
-            else:
-                pinState['state'] = "off"
 
         state.append(pinState)
-     
+    
     return state
 
 
@@ -44,7 +34,7 @@ def before_request():
 
 
 def requires_auth(f):
-    """Декоратор, проверяет, авторизован ли пользователь. Если нет — перенаправляет на страницу авторизации."""
+    """Decorator. Checks if user authorsed, otherwise redirects to login page"""
     @wraps(f)
     def decorated(*args, **kwargs):
         if app.config['AUTHORISATION_ENABLED'] and 'user' not in session:
@@ -55,6 +45,6 @@ def requires_auth(f):
 
 @app.context_processor
 def inject_user():
-    """Передаёт шаблонизатору информацию о пользователе"""
+    """Provides template processor information about user"""
     user = getattr(g, 'user', None)
     return dict(user=user, authorisation=app.config['AUTHORISATION_ENABLED'])

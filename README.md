@@ -57,7 +57,7 @@ password = 'test'
 md5.new(password).digest()
 ```
 
-Displays pin number in pin list
+Displays pin number in pin list:
 ```python
     DISPLAY_PIN_ID = True
 ```

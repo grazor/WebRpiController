@@ -7,20 +7,7 @@ import md5
 
 from wrc import app
 from functions import getState, requires_auth
-
-
-controlledPins = []
-
-# RPi.GPIO can be launched only at raspberry, otherwise it'll raise RuntimeError
-try:
-    import RPi.GPIO as GPIO
-    rpi = True
-except RuntimeError:
-    rpi = False
-
-for pin in app.config['PINS']:
-    controlledPins.append(int(pin['id']))
-
+from gpio import setOupPinState
 
 
 @app.route("/")
@@ -32,6 +19,7 @@ def index():
 
 
 @app.route('/pin/', methods=['POST'])
+@requires_auth
 def setPinState():
     """ Sets pin state """
     if request.method == 'POST':
@@ -39,9 +27,7 @@ def setPinState():
             pin = int(request.form['pin'])
             value = request.form['value'] == 'true'
 
-            if pin in controlledPins and rpi:
-                GPIO.output(pin, value)
-
+            setOupPinState(pin, value)
             return "Ok"
         except:
             abort(403)
@@ -60,30 +46,30 @@ def getPinState():
 
 @app.route("/login/", methods=['GET','POST'])
 def login():
-    """Формирует страницу авторизации, в случае успешной авторизации перенаправляет на исходную страницу, с которой мы перешли сюда."""
-    # Получение страницы, на которую необходимо перейти после успешной авторизации
+    """Generates authorisation page"""
+    # Get page to be loaded after aithorisation
     next = request.args.get('next') or url_for('index')
 
     if not app.config['AUTHORISATION_ENABLED']:
         return redirect(next)
 
-    # Если пользователь уже авторизован, сразу перейдём на указанную страницу
+    # If user already authorised
     if 'user' in session:
         return redirect(next)
 
-    # Авторизация
+    # Authorisation
     error = ''
     if request.method == 'POST':
         login = request.form['login']
         password = request.form['password']
 
         if login == app.config['USER_LOGIN'] and md5.new(password).digest() == app.config['USER_MD5_PASSWORD']:
-            # Если удалось создать пользователя — авторизация прошла успешно
+            # Successful authorisation
             session['user'] = login
             return redirect(next)
         else:
-            # Иначе отобразим сообщение об ошибке
-            error = u'Неверный логин или пароль'
+            # Error message
+            error = u'Wrong login or password'
     
     return render_template('login.html', error=error, next=next)
 
@@ -91,6 +77,6 @@ def login():
 @app.route("/logout/", methods=['GET','POST'])
 @requires_auth
 def logout():
-    """Заверщает сессию пользователя."""
+    """Closes user session"""
     session.pop('user', None)
     return redirect(url_for('index'))
