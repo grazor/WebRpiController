@@ -37,22 +37,24 @@ function pinStatePolling() {
         success: function(data){
             pins = JSON.parse(data)
             for (i=0; i < pins.length; i++) {
-                // Pin state
-                var state = pins[i].state == "on";
+                if (pins[i].type == 'out') {
+                    // Pin state
+                    var state = pins[i].state == "on";
 
-                // Toggling switch
-                var toggle = document.querySelector('.toggle#p'+pins[i].id);
-                var handle      = toggle.querySelector('.toggle-handle');
-                toggle.classList[state ? 'add' : 'remove']('active');
+                    // Toggling switch
+                    var toggle = document.querySelector('.toggle#p'+pins[i].id);
+                    var handle      = toggle.querySelector('.toggle-handle');
+                    toggle.classList[state ? 'add' : 'remove']('active');
 
-                var toggleWidth = toggle.clientWidth;
-                var handleWidth = handle.clientWidth;
-                var offset      = toggleWidth - handleWidth;
+                    var toggleWidth = toggle.clientWidth;
+                    var handleWidth = handle.clientWidth;
+                    var offset      = toggleWidth - handleWidth;
 
-                if (state) {
-                    handle.style.webkitTransform = 'translate3d(' + offset + 'px,0,0)';
-                } else {
-                    handle.style.webkitTransform = 'translate3d(0,0,0)';
+                    if (state) {
+                        handle.style.webkitTransform = 'translate3d(' + offset + 'px,0,0)';
+                    } else {
+                        handle.style.webkitTransform = 'translate3d(0,0,0)';
+                    }
                 }
             }
 

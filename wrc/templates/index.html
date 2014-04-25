@@ -6,14 +6,17 @@
 
 {% block pagetitle %}Rpi controller{% endblock %}
 
-{% block content %}
+{% block content %} 
     <ul class="table-view">
         {% for pin in pins %}
         <li class="table-view-cell">
             {{ pin.name }} {% if display %}(pin {{ pin.id }}){% endif %}
-            <div class="toggle{% if pin.state == "on" %} active{% endif %}" id="p{{ pin.id }}">
+            {% if pin.type == "out" %}<div class="toggle{% if pin.state == "on" %} active{% endif %}" id="p{{ pin.id }}">
                 <div class="toggle-handle"></div>
-            </div>
+            </div>{% endif %}
+            {% if pin.type == "1ws" %}
+                <span class="sensor-value pull-right">value {{ pin.unit }}</span>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>

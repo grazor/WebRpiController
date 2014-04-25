@@ -9,7 +9,8 @@ Web-server is based on python and flask framework (http://flask.pocoo.org/); int
 What's done?
 ------------
 - [X] Control GPIO outputs
-- [Ч] Authorisation
+- [X] Authorisation
+- [_] 1-wire sensors
 - [_] Control PWM
 - [_] Input pins
 
@@ -25,17 +26,40 @@ Configuration
 -------------
 Managed pins are listed in `wrc/__init__.py` file. Pins are named as on the board.
 ```python
-    PINS = [ {'id': '1',  'name': u'Smth'},
-             {'id': '4',  'name': u'Smth else'},
-             {'id': '12', 'name': u'Another thing'},
-             {'id': '15', 'name': u'Lalala'}, 
-             {'id': '16', 'name': u'Pin'},
-             {'id': '18', 'name': u'Pin'}, ]
+    # Managed pins
+    # Supported types:
+    #   -> Out - simple output pin
+    #   -> 1Ws - 1-wire sensor
+    PINS = [ {'id': '12', 'type': u'out', 'name': u'LED'},
+             {'id': '13', 'type': u'out', 'name': u'Dummy out'},
+             {'id': '15', 'type': u'out', 'name': u'Dummy out'}, 
+             {'id': '16', 'type': u'out', 'name': u'Dummy out'},
+             {'id': '18', 'type': u'out', 'name': u'Dummy out'},
+             {'id': '22', 'type': u'1ws', 'name': u'Dummy 1-wire sensor', 'unit': u'deg'}, ]
 ```
 
 Modify this varriable to set GPIO polling delay (in seconds):
 ```python
     GPIO_POLLING_DELAY = 3
+```
+
+Enable authorisation (default login-password: test-test):
+```python
+    AUTHORISATION_ENABLED = True
+    USER_LOGIN = 'test'
+    USER_MD5_PASSWORD = '\t\x8fk\xcdF!\xd3s\xca\xdeN\x83&\'\xb4\xf6' 
+```
+
+Generate MD5(password):
+```python
+import md5
+password = 'test'
+md5.new(password).digest()
+```
+
+Displays pin number in pin list
+```python
+    DISPLAY_PIN_ID = True
 ```
 
 Don't forget to generate another secret key!

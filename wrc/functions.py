@@ -20,14 +20,17 @@ def getState():
 
     state = []
     for pin in watchPins:
-        pinState = {'id': pin['id'], 'name': pin['name']}
-        if rpi:
-            try:
-                pinState['state'] = "on" if GPIO.input(int(pin['id'])) == GPIO.HIGH else "off"
-            except:
+        pinState = {'id': pin['id'], 'name': pin['name'], 'type': pin['type']}
+        if pinState['type'] == u'1ws':
+            pinState['unit'] = pin['unit']
+        elif pinState['type'] == u'out':
+            if rpi:
+                try:
+                    pinState['state'] = "on" if GPIO.input(int(pin['id'])) == GPIO.HIGH else "off"
+                except:
+                    pinState['state'] = "off"
+            else:
                 pinState['state'] = "off"
-        else:
-            pinState['state'] = "off"
 
         state.append(pinState)
      
