@@ -17,19 +17,31 @@ def initGpio(warnings):
         GPIO.setmode(GPIO.BOARD)
 
 
-def initOutPin(pinId):
-    """Inits pin"""
-    if rpi:
-        GPIO.setup(int(pinId), GPIO.OUT)
-
-
 def cleanup():
     """Cleanups GPIO data"""
     if rpi:
         GPIO.cleanup()
 
 
-def getOutPinState(pinId):
+#------------------------------------------
+def initInDevice(pinId):
+    """Inits input pin"""
+    if rpi:
+        GPIO.setup(int(pinId), GPIO.IN)
+
+def initOutDevice(pinId):
+    """Inits output pin"""
+    if rpi:
+        GPIO.setup(int(pinId), GPIO.OUT)
+
+def init1WSensor(somePinId, anotherPinId, oneMorePinId):
+    """Inits 1-wire sensor"""
+    if rpi:
+        pass
+
+
+#------------------------------------------
+def getInPinState(pinId):
     """Returns pin's state. 'on' or 'off'. If app running not on a raspberry, returns 'off'"""
     state = 'off'
     if rpi:
@@ -40,6 +52,21 @@ def getOutPinState(pinId):
     return state
 
 
+def getOutPinState(pinId):
+    """Returns pin's state. 'on' or 'off'. If app running not on a raspberry, returns 'off'"""
+    return getInPinState(pinId)
+
+
+def get1WSensorValue(somePinId, anotherPinId, oneMorePinId):
+    """Returns 1-wire sensor value"""
+    value = 0
+    if rpi:
+        pass
+    return value
+
+
+
+#------------------------------------------
 def setOupPinState(pinId, value):
     """Sets pin value"""
     if rpi:

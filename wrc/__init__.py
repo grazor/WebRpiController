@@ -24,16 +24,16 @@ class Config(object):
     USER_LOGIN = 'test'
     USER_MD5_PASSWORD = '\t\x8fk\xcdF!\xd3s\xca\xdeN\x83&\'\xb4\xf6' 
 
-    # Managed pins
+    # Managed devices
     # Supported types:
     #   -> Out - simple output pin
+    #   -> IN  - simple input pin
     #   -> 1Ws - 1-wire sensor
-    PINS = [ {'id': '12', 'type': u'out', 'name': u'LED'},
-             {'id': '13', 'type': u'out', 'name': u'Dummy out'},
-             {'id': '15', 'type': u'out', 'name': u'Dummy out'}, 
-             {'id': '16', 'type': u'out', 'name': u'Dummy out'},
-             {'id': '18', 'type': u'out', 'name': u'Dummy out'},
-             {'id': '22', 'type': u'1ws', 'name': u'Dummy 1-wire sensor', 'unit': u'deg'}, ]
+    DEVICES = [ {'name': u'Red LED', 'type': u'out', 'pins': [12]},
+                {'name': u'Green LED', 'type': u'out', 'pins': [8]},
+                {'name': u'Button', 'type': u'in', 'pins': [10]},
+                {'name': u'Temperature', 'type': u'1ws', 'units': u'°С', 'pins': [7, 15, 13]},
+              ]
 
 
     # Sets GPIO polling delay in seconds. 0 = disabled
@@ -46,6 +46,12 @@ class Config(object):
     DISPLAY_PIN_ID = True
 
 
+    # Add devices' IDs
+    uid = 1
+    for dev in DEVICES:
+        dev['id'] = uid
+        uid += 1
+
     
 class DevelopmentConfig(Config):
     """Development configuration"""
@@ -54,7 +60,6 @@ class DevelopmentConfig(Config):
 
 # Select config
 app.config.from_object(DevelopmentConfig)
-
 
 
 # Logging
@@ -66,7 +71,6 @@ handler.setFormatter(formatter)
 logger = logging.getLogger('wrc')
 logger.setLevel(logging.WARNING)
 logger.addHandler(handler)
-
 
 
 import wrc.views

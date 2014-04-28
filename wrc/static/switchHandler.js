@@ -4,7 +4,7 @@ function myToggleHandler(e) {
     processing++;
 
     // Data
-    var data = { pin : e.srcElement.id.substring(1),
+    var data = { deviceId : e.srcElement.id.substring(1),
              value: e.detail.isActive 
     };
 
@@ -24,6 +24,47 @@ function myToggleHandler(e) {
     });
 }
 
+function displayState(device) {
+    if (device.type == 'out') {
+        // Device state
+        var state = device.state == "on";
+
+        // Toggling switch
+        var toggle = document.querySelector('.toggle#p'+device.id);
+        var handle = toggle.querySelector('.toggle-handle');
+        toggle.classList[state ? 'add' : 'remove']('active');
+
+        var toggleWidth = toggle.clientWidth;
+        var handleWidth = handle.clientWidth;
+        var offset      = toggleWidth - handleWidth;
+
+        if (state) {
+            handle.style.webkitTransform = 'translate3d(' + offset + 'px,0,0)';
+        } else {
+            handle.style.webkitTransform = 'translate3d(0,0,0)';
+        }
+    } else if (device.type == 'in') {
+        // Device state
+        var state = device.state == "on";
+
+        // Toggling switch
+        var toggle = document.querySelector('.toggle#p'+device.id);
+        var handle = toggle.querySelector('.toggle-handle-in');
+        toggle.classList[state ? 'add' : 'remove']('active');
+
+        var toggleWidth = toggle.clientWidth;
+        var handleWidth = handle.clientWidth;
+        var offset      = toggleWidth - handleWidth;
+
+        if (state) {
+            handle.style.webkitTransform = 'translate3d(' + offset + 'px,0,0)';
+        } else {
+            handle.style.webkitTransform = 'translate3d(0,0,0)';
+        }
+    } else if (device.type == '1ws') {
+    }
+}
+
 // Set switches' positions according pins' states
 function pinStatePolling() {
     // If something is toggling, not to poll states
@@ -35,27 +76,9 @@ function pinStatePolling() {
         type: "GET",
         url: "/state/",
         success: function(data){
-            pins = JSON.parse(data)
-            for (i=0; i < pins.length; i++) {
-                if (pins[i].type == 'out') {
-                    // Pin state
-                    var state = pins[i].state == "on";
-
-                    // Toggling switch
-                    var toggle = document.querySelector('.toggle#p'+pins[i].id);
-                    var handle      = toggle.querySelector('.toggle-handle');
-                    toggle.classList[state ? 'add' : 'remove']('active');
-
-                    var toggleWidth = toggle.clientWidth;
-                    var handleWidth = handle.clientWidth;
-                    var offset      = toggleWidth - handleWidth;
-
-                    if (state) {
-                        handle.style.webkitTransform = 'translate3d(' + offset + 'px,0,0)';
-                    } else {
-                        handle.style.webkitTransform = 'translate3d(0,0,0)';
-                    }
-                }
+            devices = JSON.parse(data)
+            for (i=0; i < devices.length; i++) {
+                displayState(devices[i])
             }
 
             polling = false;
@@ -78,7 +101,7 @@ if (pollingDelay > 0) {
 }
 
 // Set toggle handlers
-var toggles = document.querySelectorAll('.toggle');
+var toggles = document.querySelectorAll('.toggle-out');
 for (i = 0; i < toggles.length; i++) {
     toggles[i].addEventListener('toggle', myToggleHandler, false);
 }

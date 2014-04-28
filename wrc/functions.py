@@ -5,25 +5,34 @@ from functools import wraps
 
 from flask import g, session, url_for, redirect, request
 from wrc import app
-from gpio import getOutPinState
+from devices import getDeviceState
+
+
+def getDeviceById(uid):
+    """Returns device information by its id"""
+    try:
+        uid = int(uid)
+    except:
+        uid = -1
+
+    for dev in app.config['DEVICES']:
+        if dev['id'] == uid:
+            return dev
+
+    return None
 
 
 def getState():
-    """Polls all pins, returns its' states"""
-    watchPins = app.config['PINS']
+    """Polls all devices, returns its' states"""
+    devices = app.config['DEVICES']
 
     state = []
-    for pin in watchPins:
-        pinState = {'id': pin['id'], 'name': pin['name'], 'type': pin['type']}
+    for dev in devices:
+        devState = {'name': dev['name'], 'type': dev['type'], 'pins': dev['pins'], 'id': dev['id']}
+        if 'units' in dev: devState['units'] = dev['units']
 
-        if pinState['type'] == u'out':
-            pinState['state'] = getOutPinState(pinState['id'])
-        elif pinState['type'] == u'1ws':
-            pinState['state'] = '0'
-            pinState['unit'] = pin['unit']
-
-        state.append(pinState)
-    
+        devState['state'] = getDeviceState(devState)
+        state.append(devState)
     return state
 
 

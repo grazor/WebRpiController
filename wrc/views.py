@@ -6,29 +6,34 @@ import json
 import md5
 
 from wrc import app
-from functions import getState, requires_auth
-from gpio import setOupPinState
+from functions import getDeviceById, getState, requires_auth
+from devices import setDeviceState
 
 
 @app.route("/")
 @requires_auth
 def index():
     """Index page"""
-    pins = getState()
-    return render_template('index.html', pins=pins, polling=app.config['GPIO_POLLING_DELAY'], display=app.config['DISPLAY_PIN_ID'])
+    devices = getState()
+    return render_template('index.html', devices=devices, polling=app.config['GPIO_POLLING_DELAY'], display=app.config['DISPLAY_PIN_ID'])
 
 
 @app.route('/pin/', methods=['POST'])
 @requires_auth
 def setPinState():
-    """Sets pin state"""
+    """Sets device state"""
     if request.method == 'POST':
         try:
-            pin = int(request.form['pin'])
+            deviceId = int(request.form['deviceId'])
             value = request.form['value'] == 'true'
 
-            setOupPinState(pin, value)
-            return "Ok"
+
+            device = getDeviceById(deviceId)
+            if device:
+                setDeviceState(device, value)
+                return "Ok"
+            else:
+                return "Error"
         except:
             abort(403)
     else:
@@ -38,10 +43,9 @@ def setPinState():
 @app.route('/state/')
 @requires_auth
 def getPinState():
-    """Returns pins state as JSON"""
-    pins = getState()
-    return json.dumps(pins)
-
+    """Returns devices' state as JSON"""
+    devices = getState()
+    return json.dumps(devices)
 
 
 @app.route('/login/', methods=['GET','POST'])

@@ -17,7 +17,7 @@
 
   var findToggle = function (target) {
     var i;
-    var toggles = document.querySelectorAll('.toggle');
+    var toggles = document.querySelectorAll('.toggle-out');
 
     for (; target && target !== document; target = target.parentNode) {
       for (i = toggles.length; i--;) {

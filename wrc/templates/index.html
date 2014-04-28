@@ -8,14 +8,19 @@
 
 {% block content %} 
     <ul class="table-view">
-        {% for pin in pins %}
+        {% for dev in devices %}
         <li class="table-view-cell pins-info">
-            {{ pin.name }} {% if display %}(pin {{ pin.id }}){% endif %}
-            {% if pin.type == "out" %}<div class="toggle{% if pin.state == "on" %} active{% endif %}" id="p{{ pin.id }}">
+            {{ dev.name }}
+            {% if dev.type == "out" %} {% if display %}(pin {{ dev.pins[0] }}){% endif %}
+            <div class="toggle toggle-out{% if dev.state == "on" %} active{% endif %}" id="p{{ dev.id }}">
                 <div class="toggle-handle"></div>
             </div>{% endif %}
-            {% if pin.type == "1ws" %}
-                <span class="sensor-value pull-right">value {{ pin.unit }}</span>
+            {% if dev.type == "in" %} {% if display %}(pin {{ dev.pins[0] }}){% endif %}
+            <div class="toggle toggle-in{% if dev.state == "on" %} active{% endif %}" id="p{{ dev.id }}">
+                <div class="toggle-handle-in"></div>
+            </div>{% endif %}
+            {% if dev.type == "1ws" %} {% if display %}(pins {{ dev.pins[0] }}, {{ dev.pins[1] }}, {{ dev.pins[2] }}){% endif %}
+                <span class="sensor-value pull-right">value {{ dev.units }}</span>
             {% endif %}
         </li>
         {% endfor %}
