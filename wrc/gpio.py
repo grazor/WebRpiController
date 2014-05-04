@@ -79,7 +79,7 @@ def get1WSensorValue(devId, cacheValid=60):
     """Returns 1-wire sensor value"""
     value = None
     
-    timeDelta = 0
+    timeDelta = cacheValid + 1
     prevValue = 0
 
     try:
@@ -95,7 +95,7 @@ def get1WSensorValue(devId, cacheValid=60):
                 with open(cache, 'r') as f:
                     prevTime, prevValue = f.read().strip().split(':')
 
-                prevTime, prevValue = int(strip(prevTime)), int(strip(prevValue))
+                prevTime, prevValue = int(prevTime.strip()), float(prevValue.strip())
                 timeDelta = int(time()) - prevTime
             except:
                 pass
@@ -120,8 +120,6 @@ def setOupPinState(pinId, value):
     """Sets pin value"""
     if rpi:
         GPIO.output(pinId, value)
-
-
 
 
 #------------------------------------------
