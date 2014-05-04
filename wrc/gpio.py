@@ -111,7 +111,7 @@ def get1WSensorValue(devId, cacheValid=60):
             except:
                 pass
 
-    return value
+    return str(value)
 
 
 

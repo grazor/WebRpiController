@@ -8,7 +8,7 @@ function myToggleHandler(e) {
              value: e.detail.isActive 
     };
 
-    console.log("Set pin " + data.pin + " = " + data.value)
+    //console.log("Set pin " + data.pin + " = " + data.value)
     
     // Send request
     $.ajax({
@@ -63,7 +63,7 @@ function displayState(device) {
         }
     } else if (device.type == '1ws') {
         var output = document.querySelector('.sensor#p'+device.id);
-        output.innerHtml = device.state
+        output.innerHTML = device.state
     }
 }
 
