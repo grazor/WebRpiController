@@ -76,7 +76,7 @@ def getOutPinState(pinId):
     return getInPinState(pinId)
 
 
-def get1WSensorValue(devId):
+def get1WSensorValue(devId, cacheValid=60):
     """Returns 1-wire sensor value"""
     value = 0
     
@@ -97,11 +97,14 @@ def get1WSensorValue(devId):
             except:
                 pass
 
-        if timeDelta < 60:
+        if timeDelta <= cacheValid:
             value = prevValue
         else:
             value = readTemperature('/sys/bus/w1/devices/'+ devId +'/w1_slave')
-            #TODO: save to cache
+            with open(cache, 'w') as f:
+                data = '%i:%i\n' % (int(time()), value)
+                f.write(data)
+
     return value
 
 

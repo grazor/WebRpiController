@@ -1,46 +1,61 @@
 WebRpiController
 ================
-
 This project provides simple mobile web-interface for controlling Raspberry Pi's GPIO pins.
 Web-server is based on python and flask framework (http://flask.pocoo.org/); interface utilizes Ratchet ftamework (http://goratchet.com/); GPIO is contolled by RPi.GPIO framework (http://sourceforge.net/projects/raspberry-gpio-python/).
+
 
 What's done?
 ------------
 - [X] Control GPIO outputs
+- [X] Input pins
+- [X] 1-wire sensors
 - [X] Authorisation
-- [_] 1-wire sensors
-- [_] Control PWM
-- [_] Input pins
 
 
 Installation
 ------------
 ```bash
+git clone https://github.com/grazor/WebRpiController.git
+cd WebRpiController
 sudo apt-get install python-pip
 sudo pip install -r pip_requirements.txt
 ```
+
 
 Configuration
 -------------
 ### Controlled pins
 Managed pins are listed in `wrc/__init__.py` file. Pins are named as on the board.
 ```python
-    # Managed pins
+    # Managed devices
     # Supported types:
     #   -> Out - simple output pin
-    #   -> 1Ws - 1-wire sensor
-    PINS = [ {'id': '12', 'type': u'out', 'name': u'LED'},
-             {'id': '13', 'type': u'out', 'name': u'Dummy out'},
-             {'id': '15', 'type': u'out', 'name': u'Dummy out'}, 
-             {'id': '16', 'type': u'out', 'name': u'Dummy out'},
-             {'id': '18', 'type': u'out', 'name': u'Dummy out'},
-             {'id': '22', 'type': u'1ws', 'name': u'Dummy 1-wire sensor', 'unit': u'deg'}, ]
+    #   -> IN  - simple input pin
+    #   -> 1Ws - 1-wire sensor. If uid is not set, will be assigned automatically
+    DEVICES = [ {'name': u'Red LED', 'type': u'out', 'pins': [12]},
+                {'name': u'Green LED', 'type': u'out', 'pins': [8]},
+                {'name': u'Button', 'type': u'in', 'pins': [10]},
+                {'name': u'Temperature', 'type': u'1ws', 'units': u'°С', 'uid': '28-000004580f46', 'cacheValid': '60'},
+              ]
 ```
 
+
 ### Polling
-Modify this varriable to set GPIO polling delay (in seconds):
+Modify this varriable to set GPIO polling delay (in seconds), 0 = disabled:
 ```python
     GPIO_POLLING_DELAY = 3
+```
+
+### GPIO warnings
+Warnings from RPi.GPIO lib:
+```python
+    GPIO_WARNINGS = False
+```
+
+### Display pins
+Displays pin number in pin list:
+```python
+    DISPLAY_PIN_ID = True
 ```
 
 ### Authorisation
@@ -58,20 +73,8 @@ password = 'test'
 md5.new(password).digest()
 ```
 
-### GPIO warnings
-Warnings from RPi.GPIO lib:
-```python
-    GPIO_WARNINGS = False
-```
-
-### Display pins
-Displays pin number in pin list:
-```python
-    DISPLAY_PIN_ID = True
-```
-
 ### Cookie secret key
-Don't forget to generate another secret key!
+Don't forget to generate different secret key!
 ```python
 import os
 os.urandom(24)
@@ -84,6 +87,8 @@ os.urandom(24)
 
 Launching
 ---------
+### Run with flask internal server
+This method is recommended only for testing and debugging.
 ```bash
 sudo ./server.py
 ```
@@ -93,3 +98,6 @@ Run in background
 screen -S web sudo ./server.py
 Ctrl+A, D
 ```
+
+### Run with lighttpd
+http://flask.pocoo.org/docs/deploying/fastcgi/

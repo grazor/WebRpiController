@@ -62,6 +62,8 @@ function displayState(device) {
             handle.style.webkitTransform = 'translate3d(0,0,0)';
         }
     } else if (device.type == '1ws') {
+        var output = document.querySelector('.sensor#p'+device.id);
+        output.innerHtml = device.state
     }
 }
 

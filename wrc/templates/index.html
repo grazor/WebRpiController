@@ -20,7 +20,7 @@
                 <div class="toggle-handle-in"></div>
             </div>{% endif %}
             {% if dev.type == "1ws" %} {% if display %}(id {{ dev.uid }}){% endif %}
-                <span class="sensor-value pull-right">value {{ dev.units }}</span>
+                <span class="sensor-value pull-right"><span class="sensor" id="p{{ dev.id }}">{{ dev.state }}</span> {{ dev.units }}</span>
             {% endif %}
         </li>
         {% endfor %}
