@@ -89,7 +89,7 @@ def get1WSensorValue(devId, cacheValid=60):
         sensors = []
 
     if rpi and devId in sensors:
-        cache = 'cache%s.tmp' % devId
+        cache = '/tmp/cache%s.tmp' % devId
         if os.path.isfile(cache):
             try:
                 with open(cache, 'r') as f:

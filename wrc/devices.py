@@ -26,7 +26,7 @@ def getDeviceState(device):
         state = getInPinState(device['pins'][0])
     elif device['type'] == '1ws':
         try:
-            cacheValid = int(dev['cacheValid'])
+            cacheValid = int(device['cacheValid'])
         except:
             cacheValid = 60
         state = get1WSensorValue(device['uid'], cacheValid)

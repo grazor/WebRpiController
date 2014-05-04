@@ -32,7 +32,7 @@ class Config(object):
     DEVICES = [ {'name': u'Red LED', 'type': u'out', 'pins': [12]},
                 {'name': u'Green LED', 'type': u'out', 'pins': [8]},
                 {'name': u'Button', 'type': u'in', 'pins': [10]},
-                {'name': u'Temperature', 'type': u'1ws', 'units': u'°С', 'uid': '28-000004580f46', 'cacheValid': '60'},
+                {'name': u'Temperature', 'type': u'1ws', 'units': u'°С', 'uid': '28-000004580f46', 'cacheValid': '10'},
               ]
 
 
