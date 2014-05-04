@@ -11,7 +11,6 @@ try:
 except RuntimeError:
     rpi = False
 
-sensors = []
 
 def initGpio(warnings):
     """Inits GPIO with default settings"""
@@ -78,10 +77,16 @@ def getOutPinState(pinId):
 
 def get1WSensorValue(devId, cacheValid=60):
     """Returns 1-wire sensor value"""
-    value = 0
+    value = None
     
     timeDelta = 0
     prevValue = 0
+
+    try:
+        with open('/sys/bus/w1/devices/w1_bus_master1/w1_master_slaves', 'r') as f:
+            sensors = f.read().strip().split('\n')
+    except:
+        sensors = []
 
     if rpi and devId in sensors:
         cache = 'cache%s.tmp' % devId
@@ -92,18 +97,19 @@ def get1WSensorValue(devId, cacheValid=60):
 
                 prevTime, prevValue = int(strip(prevTime)), int(strip(prevValue))
                 timeDelta = int(time()) - prevTime
-
-
             except:
                 pass
 
         if timeDelta <= cacheValid:
             value = prevValue
         else:
-            value = readTemperature('/sys/bus/w1/devices/'+ devId +'/w1_slave')
-            with open(cache, 'w') as f:
-                data = '%i:%i\n' % (int(time()), value)
-                f.write(data)
+            try:
+                value = readTemperature('/sys/bus/w1/devices/'+ devId +'/w1_slave')
+                with open(cache, 'w') as f:
+                    data = '%i:%i\n' % (int(time()), value)
+                    f.write(data)
+            except:
+                pass
 
     return value
 
