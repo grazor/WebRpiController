@@ -4,8 +4,17 @@ This project provides simple mobile web-interface for controlling Raspberry Pi's
 Web-server is based on python and flask framework (http://flask.pocoo.org/); interface utilizes Ratchet ftamework (http://goratchet.com/); GPIO is contolled by RPi.GPIO framework (http://sourceforge.net/projects/raspberry-gpio-python/).
 
 
-What's done?
-------------
+Table of Contents
+-----------------
+**[Supported features](#what-is-done)**  
+**[Installation](#installation)**  
+**[Configuration](#configuration)**  
+**[Launching](#launching)**  
+**[Screenshots](#screenshots)**  
+
+
+What is done?
+-------------
 - [X] Control GPIO outputs
 - [X] Input pins
 - [X] 1-wire sensors
@@ -101,3 +110,8 @@ Ctrl+A, D
 
 ### Run with lighttpd
 http://flask.pocoo.org/docs/deploying/fastcgi/
+
+
+Screenshots
+-----------
+![Screenshot](https://cloud.githubusercontent.com/assets/1236070/2872795/4b44924e-d377-11e3-864c-5e9c5a8d73f6.png)
