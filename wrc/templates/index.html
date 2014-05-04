@@ -19,7 +19,7 @@
             <div class="toggle toggle-in{% if dev.state == "on" %} active{% endif %}" id="p{{ dev.id }}">
                 <div class="toggle-handle-in"></div>
             </div>{% endif %}
-            {% if dev.type == "1ws" %} {% if display %}(pins {{ dev.pins[0] }}, {{ dev.pins[1] }}, {{ dev.pins[2] }}){% endif %}
+            {% if dev.type == "1ws" %} {% if display %}(id {{ dev.uid }}){% endif %}
                 <span class="sensor-value pull-right">value {{ dev.units }}</span>
             {% endif %}
         </li>

@@ -11,7 +11,10 @@ def initDevice(device):
     elif device['type'] == 'in':
         initInDevice(device['pins'][0])
     elif device['type'] == '1ws':
-        init1WSensor(device['pins'][0], device['pins'][1], device['pins'][2])
+        if 'uid' in device:
+            init1WSensor(device['sid'], device['uid'])
+        else:
+            device['uid'] = init1WSensor(device['sid'])
 
 
 def getDeviceState(device):
@@ -22,7 +25,7 @@ def getDeviceState(device):
     elif device['type'] == 'in':
         state = getInPinState(device['pins'][0])
     elif device['type'] == '1ws':
-        state = get1WSensorValue(device['pins'][0], device['pins'][1], device['pins'][2])
+        state = get1WSensorValue(device['uid'])
 
     return state
 

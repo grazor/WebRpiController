@@ -28,11 +28,11 @@ class Config(object):
     # Supported types:
     #   -> Out - simple output pin
     #   -> IN  - simple input pin
-    #   -> 1Ws - 1-wire sensor
+    #   -> 1Ws - 1-wire sensor. If uid is not set, will be assigned automatically
     DEVICES = [ {'name': u'Red LED', 'type': u'out', 'pins': [12]},
                 {'name': u'Green LED', 'type': u'out', 'pins': [8]},
                 {'name': u'Button', 'type': u'in', 'pins': [10]},
-                {'name': u'Temperature', 'type': u'1ws', 'units': u'°С', 'pins': [7, 15, 13]},
+                {'name': u'Temperature', 'type': u'1ws', 'units': u'°С', 'uid': '28-000004580f46'},
               ]
 
 
@@ -48,9 +48,14 @@ class Config(object):
 
     # Add devices' IDs
     uid = 1
+    sid = 1
     for dev in DEVICES:
         dev['id'] = uid
         uid += 1
+
+        if dev['type'] == u'1ws':
+            dev['sid'] = sid
+            sid += 1
 
     
 class DevelopmentConfig(Config):

@@ -28,8 +28,11 @@ def getState():
 
     state = []
     for dev in devices:
-        devState = {'name': dev['name'], 'type': dev['type'], 'pins': dev['pins'], 'id': dev['id']}
+        devState = {'name': dev['name'], 'type': dev['type'], 'id': dev['id']}
+        if 'pins' in dev: devState['pins'] = dev['pins']
         if 'units' in dev: devState['units'] = dev['units']
+        if 'uid' in dev: devState['uid'] = dev['uid']
+        if 'sid' in dev: devState['sid'] = dev['sid']
 
         devState['state'] = getDeviceState(devState)
         state.append(devState)
