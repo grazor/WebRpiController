@@ -106,12 +106,12 @@ def get1WSensorValue(devId, cacheValid=60):
             try:
                 value = readTemperature('/sys/bus/w1/devices/'+ devId +'/w1_slave')
                 with open(cache, 'w') as f:
-                    data = '%i:%i\n' % (int(time()), value)
+                    data = '%i:%.2f\n' % (int(time()), value)
                     f.write(data)
             except:
                 pass
 
-    return str(value)
+    return "%.2f" % (value)
 
 
 
