@@ -111,6 +111,8 @@ def get1WSensorValue(devId, cacheValid=60):
             except:
                 pass
 
+    if not value:
+        value = 0.0
     return "%.2f" % (value)
 
 
