@@ -1,7 +1,7 @@
 WebRpiController
 ================
 This project provides simple mobile web-interface for controlling Raspberry Pi's GPIO pins.
-Web-server is based on python and flask framework (http://flask.pocoo.org/); interface utilizes Ratchet ftamework (http://goratchet.com/); GPIO is contolled by RPi.GPIO framework (http://sourceforge.net/projects/raspberry-gpio-python/).
+Web-server is based on python and [flask framework](http://flask.pocoo.org/); interface utilizes [Ratchet ftamework](http://goratchet.com/); GPIO is contolled by [RPi.GPIO framework](http://sourceforge.net/projects/raspberry-gpio-python/).
 
 
 Table of Contents
@@ -109,7 +109,7 @@ Ctrl+A, D
 ```
 
 ### Run with lighttpd
-http://flask.pocoo.org/docs/deploying/fastcgi/
+Visit [flask manual](http://flask.pocoo.org/docs/deploying/fastcgi/)
 
 
 Screenshots
