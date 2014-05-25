@@ -10,7 +10,7 @@ from flask import Flask
 app = Flask(__name__)
 
 
-class Config(object):
+class BaseConfig(object):
     PERMANENT_SESSION_LIFETIME = 2592000
 
     DEBUG = False
@@ -58,13 +58,13 @@ class Config(object):
             sid += 1
 
     
-class DevelopmentConfig(Config):
+class DevelopmentConfig(BaseConfig):
     """Development configuration"""
     DEBUG = True
 
 
 # Select config
-app.config.from_object(DevelopmentConfig)
+app.config.from_object(BaseConfig)
 
 
 # Logging
