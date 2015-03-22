@@ -18,6 +18,7 @@ What is done?
 - [X] Control GPIO outputs
 - [X] Input pins
 - [X] 1-wire sensors
+- [X] custom shell commands
 - [X] Authorisation
 
 
@@ -26,8 +27,8 @@ Installation
 ```bash
 git clone https://github.com/grazor/WebRpiController.git
 cd WebRpiController
-sudo apt-get install python-pip
-sudo pip install -r pip_requirements.txt
+apt-get install python-pip
+pip install -r pip_requirements
 ```
 
 
@@ -38,13 +39,15 @@ Managed pins are listed in `wrc/__init__.py` file. Pins are named as on the boar
 ```python
     # Managed devices
     # Supported types:
-    #   -> Out - simple output pin
-    #   -> IN  - simple input pin
-    #   -> 1Ws - 1-wire sensor. If uid is not set, will be assigned automatically
+    #   -> Out   - simple output pin
+    #   -> IN    - simple input pin
+    #   -> 1Ws   - 1-wire sensor. If uid is not set, will be assigned automatically
+    #   -> Shell - shell commands
     DEVICES = [ {'name': u'Red LED', 'type': u'out', 'pins': [12]},
                 {'name': u'Green LED', 'type': u'out', 'pins': [8]},
                 {'name': u'Button', 'type': u'in', 'pins': [10]},
                 {'name': u'Temperature', 'type': u'1ws', 'units': u'°С', 'uid': '28-000004580f46', 'cacheValid': '60'},
+                {'name': u'Datetime', 'type': u'shell', 'command': 'date'},
               ]
 ```
 
@@ -99,12 +102,12 @@ Launching
 ### Run with flask internal server
 This method is recommended only for testing and debugging.
 ```bash
-sudo ./server.py
+./server.py
 ```
 
 Run in background
 ```bash
-screen -S web sudo ./server.py
+screen -S web ./server.py
 Ctrl+A, D
 ```
 

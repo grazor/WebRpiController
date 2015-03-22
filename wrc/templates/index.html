@@ -22,6 +22,9 @@
             {% if dev.type == "1ws" %} {% if display %}(id {{ dev.uid }}){% endif %}
                 <span class="sensor-value pull-right"><span class="sensor" id="p{{ dev.id }}">{{ dev.state }}</span> {{ dev.units }}</span>
             {% endif %}
+            {% if dev.type == "shell" %} {% if display %}(id {{ dev.id }}){% endif %}
+                <span class="sensor-value pull-right"><span class="sensor" id="p{{ dev.id }}">{{ dev.state }}</span></span>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>

@@ -33,6 +33,7 @@ def getState():
         if 'units' in dev: devState['units'] = dev['units']
         if 'uid' in dev: devState['uid'] = dev['uid']
         if 'sid' in dev: devState['sid'] = dev['sid']
+        if 'command' in dev: devState['command'] = dev['command']
 
         devState['state'] = getDeviceState(devState)
         state.append(devState)

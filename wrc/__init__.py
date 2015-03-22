@@ -20,6 +20,7 @@ class BaseConfig(object):
     SECRET_KEY = '\xc2\xd5E\xe3\xf1\x1fp\'<d\xd0]\xb9\x01I\x112\xc1w\xaa\x85x\x11\xde\xb3\xc5'
 
     # Authorisation
+    # See readme.md
     AUTHORISATION_ENABLED = True
     USER_LOGIN = 'test'
     USER_MD5_PASSWORD = '\t\x8fk\xcdF!\xd3s\xca\xdeN\x83&\'\xb4\xf6' 
@@ -29,10 +30,12 @@ class BaseConfig(object):
     #   -> Out - simple output pin
     #   -> IN  - simple input pin
     #   -> 1Ws - 1-wire sensor. If uid is not set, will be assigned automatically
+    #   -> Shell - shell commands
     DEVICES = [ {'name': u'Red LED', 'type': u'out', 'pins': [12]},
                 {'name': u'Green LED', 'type': u'out', 'pins': [8]},
                 {'name': u'Button', 'type': u'in', 'pins': [10]},
                 {'name': u'Temperature', 'type': u'1ws', 'units': u'°С', 'uid': '28-000004580f46', 'cacheValid': '10'},
+                {'name': u'Datetime', 'type': u'shell', 'command': 'date'},
               ]
 
 

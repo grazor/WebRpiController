@@ -15,6 +15,8 @@ def initDevice(device):
             init1WSensor(device['sid'], device['uid'])
         else:
             device['uid'] = init1WSensor(device['sid'])
+    elif device['type'] == 'shell':
+        pass
 
 
 def getDeviceState(device):
@@ -30,6 +32,10 @@ def getDeviceState(device):
         except:
             cacheValid = 60
         state = get1WSensorValue(device['uid'], cacheValid)
+    elif device['type'] == 'shell':
+        q = os.popen(device['command'])
+        state = ''.join(q.readlines()).decode('utf-8')
+        q.close()
 
     return state
 

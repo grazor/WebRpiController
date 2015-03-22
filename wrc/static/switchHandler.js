@@ -61,9 +61,9 @@ function displayState(device) {
         } else {
             handle.style.webkitTransform = 'translate3d(0,0,0)';
         }
-    } else if (device.type == '1ws') {
+    } else if (device.type == '1ws' || device.type == 'shell') {
         var output = document.querySelector('.sensor#p'+device.id);
-        output.innerHTML = device.state
+        output.innerHTML = device.state;
     }
 }
 
