@@ -27,9 +27,11 @@ Installation
 ```bash
 git clone https://github.com/grazor/WebRpiController.git
 cd WebRpiController
-apt-get install python-pip
-pip install -r pip_requirements
+sudo apt-get install python-pip
+sudo pip install -r pip_requirements
 ```
+
+Default login-password: test-test.
 
 
 Configuration
@@ -79,17 +81,16 @@ Enable authorisation (default login-password: test-test):
 ```
 
 Generate MD5(password):
-```python
-import md5
-password = 'test'
-md5.new(password).digest()
+```bash
+./passgen.py password
 ```
 
 ### Cookie secret key
 Don't forget to generate different secret key!
 ```python
-import os
-os.urandom(24)
+python
+>>> import os
+>>> os.urandom(24)
 ```
 
 ```python
@@ -102,12 +103,12 @@ Launching
 ### Run with flask internal server
 This method is recommended only for testing and debugging.
 ```bash
-./server.py
+sudo ./server.py
 ```
 
 Run in background
 ```bash
-screen -S web ./server.py
+screen -S web sudo ./server.py
 Ctrl+A, D
 ```
 
